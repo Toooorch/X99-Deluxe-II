@@ -1,9 +1,9 @@
-# X99DeluxeII
+#h1 X99DeluxeII
 All my files (including 3rd party work) for X99 Deluxe II based hack.
 
 Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforge.net/projects/cloverefiboot/)
 
-**Setup:**
+#h2 **Setup:**
 - Asus X99 Deluxe II Rev 1.02 [asus](https://www.asus.com/us/Motherboards/X99-DELUXE-II/)
 - i7 5820K 3.3Ghz > O.C. 3.8Ghz (There are some base support hints on OS X for Haswell-E)
 - nVidia 1080 Ti (nVidia WEB Drivers)
@@ -15,7 +15,7 @@ Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforg
 - WD Blue 1TB
 - Apple HDD 1TB
 
-
+#h2 **Drivers & Patches**
 **Audio:**
 - VoodooHDA-2.8.8 > then manually install 2.8.9.kext (works great in this order) [repo](https://sourceforge.net/projects/voodoohda/)
 
@@ -38,7 +38,7 @@ Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforg
 **NVMe**
 - Piker Alpha Patch
 
-**BIOS Settings:**
+#h2 **BIOS Settings:**
 Changed values, default values on X99 are not listen.
 
 Boot
@@ -51,6 +51,7 @@ Advanced USB Configuration
 Onboard Devices
 - ASMEDIA USB 3.1 Battery Charging Support - Enabled
 
+#h2 **System Services**
 **iMessage and iCloud services:**
 use iMessageDebug for extract ROM and MLB(Board Serial Number) from
 "real" Mac machine then insert your numbers to config.plist
