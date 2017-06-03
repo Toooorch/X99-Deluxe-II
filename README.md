@@ -41,3 +41,16 @@ use iMessageDebug for extract ROM and MLB(Board Serial Number) from
 
 **never install OS with those numbers** otherwise Apple will block them
 and you will have to call Apple support (and that is horrible thing trust me).
+
+**BIOS Settings:**
+Changed values, default values on X99 are not listen.
+
+Boot
+CMS - Disabled
+Secure Boot - Other OS
+
+Advanced USB Configuration
+- EHCI Hand-Off - Enabled
+
+Onboard Devices
+ASMEDIA USB 3.1 Battery Charging Support - Enabled
