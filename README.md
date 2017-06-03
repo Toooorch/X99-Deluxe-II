@@ -1,6 +1,7 @@
+# X99DeluxeII
 All my files (including 3rd party work) for X99 Deluxe II based hack.
 
-Currenly used Clover version: ** Clover_v2.4k_r4077 **
+Currenly used Clover version: **Clover_v2.4k_r4077**
 
 Current setup:
 - Asus X99 Deluxe II Rev 1.02
@@ -25,7 +26,5 @@ iMessage and iCloud services:
 use iMessageDebug for extract ROM and MLB(Board Serial Number) from
 "real" Mac machine then insert your numbers to config.plist
 
-** never install OS with those numbers ** otherwise Apple will block them
+**never install OS with those numbers** otherwise Apple will block them
 and you will have to call Apple support (and that is horrible thing trust me).
-
-# X99DeluxeII
