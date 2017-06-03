@@ -33,7 +33,23 @@ Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforg
 - freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
 
 **XCPM**
-- Piker Alpha patches
+- Piker Alpha Patches
+
+**NVMe**
+- Piker Alpha Patch
+
+**BIOS Settings:**
+Changed values, default values on X99 are not listen.
+
+Boot
+- CMS - Disabled
+- Secure Boot - Other OS
+
+Advanced USB Configuration
+- EHCI Hand-Off - Enabled
+
+Onboard Devices
+- ASMEDIA USB 3.1 Battery Charging Support - Enabled
 
 **iMessage and iCloud services:**
 use iMessageDebug for extract ROM and MLB(Board Serial Number) from
@@ -41,16 +57,3 @@ use iMessageDebug for extract ROM and MLB(Board Serial Number) from
 
 **never install OS with those numbers** otherwise Apple will block them
 and you will have to call Apple support (and that is horrible thing trust me).
-
-**BIOS Settings:**
-Changed values, default values on X99 are not listen.
-
-Boot
-CMS - Disabled
-Secure Boot - Other OS
-
-Advanced USB Configuration
-- EHCI Hand-Off - Enabled
-
-Onboard Devices
-ASMEDIA USB 3.1 Battery Charging Support - Enabled
