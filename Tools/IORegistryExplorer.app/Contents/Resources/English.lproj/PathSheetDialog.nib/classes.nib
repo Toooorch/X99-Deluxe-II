@@ -1,0 +1,71 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                browserSelectionChanged = id; 
+                browserView = id; 
+                cancelGoToPath = id; 
+                centerSelectionInVisibleArea = id; 
+                changeAutoupdate = id; 
+                changeView = id; 
+                collapseAll = id; 
+                dataViewOptionsChanged = id; 
+                expandAll = id; 
+                goToNextPathCrossPlane = id; 
+                goToNextPathInPlane = id; 
+                goToPrevPathCrossPlane = id; 
+                goToPrevPathInPlane = id; 
+                outlineView = id; 
+                outlineViewSelectionChanged = id; 
+                pathPopupChanged = id; 
+                performGoToPath = id; 
+                planePopupChanged = id; 
+                promptForPath = id; 
+                propertiesViewSelectionChanged = id; 
+                update = id; 
+            }; 
+            CLASS = RexWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                autoUpdateCheckbox = NSButton; 
+                entryPathsButton = NSPopUpButton; 
+                explorerSplitView = NSSplitView; 
+                explorerTabView = NSTabView; 
+                filteredFindCheckbox = NSButton; 
+                findClassCheckbox = NSButtonCell; 
+                findField = NSTextField; 
+                findInPlaneCheckbox = NSButton; 
+                findInheritanceCheckbox = NSButtonCell; 
+                findKeysCheckbox = NSButtonCell; 
+                findNameCheckbox = NSButtonCell; 
+                findPreviewField = NSTextField; 
+                findSpecialCheckbox = NSButtonCell; 
+                findSplitView = NSSplitView; 
+                findStepper = NSStepper; 
+                findTableView = NSTableView; 
+                findValuesCheckbox = NSButtonCell; 
+                goToPathCancelButton = NSButton; 
+                goToPathField = NSTextField; 
+                goToPathGoButton = NSButton; 
+                goToPathSheet = NSPanel; 
+                ioserviceAttributesView = NSView; 
+                objectActiveCell = NSButtonCell; 
+                objectBusyCountField = NSTextField; 
+                objectInheritanceField = NSTextField; 
+                objectMatchedCell = NSButtonCell; 
+                objectNameField = NSTextField; 
+                objectRegisteredCell = NSButtonCell; 
+                objectRetainCountField = NSTextField; 
+                planeListButton = NSPopUpButton; 
+                propertiesOutlineView = NSOutlineView; 
+                registryBrowser = NSBrowser; 
+                registryOutlineView = RexRegistryOutlineView; 
+                viewStyleControl = NSSegmentedControl; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSDocument; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,227 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {"" = id; dataViewOptionChanged = id; dataViewOptionsChanged = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            CLASS = RexBrowserDelegate; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {windowController = RexWindowController; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                browserSelectionChanged = id; 
+                browserView = id; 
+                cancelGoToPath = id; 
+                centerSelectionInVisibleArea = id; 
+                changeAutoupdate = id; 
+                changeView = id; 
+                collapseAll = id; 
+                dataViewOptionsChanged = id; 
+                expandAll = id; 
+                filteredFindChanged = id; 
+                find = id; 
+                findInPlaneChanged = id; 
+                findOptionsChanged = id; 
+                findStep = id; 
+                goToNextMatch = id; 
+                goToNextPathCrossPlane = id; 
+                goToNextPathInPlane = id; 
+                goToPrevMatch = id; 
+                goToPrevPathCrossPlane = id; 
+                goToPrevPathInPlane = id; 
+                outlineView = id; 
+                outlineViewSelectionChanged = id; 
+                pathPopupChanged = id; 
+                performGoToPath = id; 
+                planePopupChanged = id; 
+                promptForPath = id; 
+                propertiesViewSelectionChanged = id; 
+                resetFindOptions = id; 
+                revealSelectionBundleInFinder = id; 
+                toggleFindOptionsDrawer = id; 
+                toggleFindOptionsDrawerButtonClicked = id; 
+                update = id; 
+            }; 
+            CLASS = RexDocument; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                entryPathsButton = NSPopUpButton; 
+                explorerSplitView = NSSplitView; 
+                explorerTabView = NSTabView; 
+                filteredFindCheckbox = NSButton; 
+                findBundleIDCheckbox = NSButtonCell; 
+                findClassCheckbox = NSButtonCell; 
+                findField = NSTextField; 
+                findInheritanceCheckbox = NSButtonCell; 
+                findKeyValueCheckbox = NSButtonCell; 
+                findKeysCheckbox = NSButtonCell; 
+                findNameCheckbox = NSButtonCell; 
+                findOptionsDrawer = NSDrawer; 
+                findOptionsDrawerButton = NSButton; 
+                findPreviewField = NSTextField; 
+                findSpecialCheckbox = NSButtonCell; 
+                findStepper = NSStepper; 
+                findTableView = NSTableView; 
+                findValuesCheckbox = NSButtonCell; 
+                goToPathCancelButton = NSButton; 
+                goToPathField = NSTextField; 
+                goToPathGoButton = NSButton; 
+                goToPathSheet = NSPanel; 
+                ioserviceAttributesView = NSView; 
+                objectActiveCell = NSButtonCell; 
+                objectBundleField = NSTextField; 
+                objectBusyCountField = NSTextField; 
+                objectInheritanceField = NSTextField; 
+                objectMatchedCell = NSButtonCell; 
+                objectNameField = NSTextField; 
+                objectRegisteredCell = NSButtonCell; 
+                objectRetainCountField = NSTextField; 
+                planeListButton = NSPopUpButton; 
+                propertiesOutlineView = NSOutlineView; 
+                registryBrowser = NSBrowser; 
+                registryOutlineView = RexRegistryOutlineView; 
+                systemStatusField = NSTextField; 
+                viewStyleControl = NSSegmentedControl; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSDocument; 
+        }, 
+        {
+            ACTIONS = {findPreviewChanged = id; findPreviewSelected = id; }; 
+            CLASS = RexFindTableViewDataSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                findNumMatchedField = NSTextField; 
+                findPreviewField = NSTextField; 
+                findTableView = NSTableView; 
+                nameColumn = NSTableColumn; 
+                propertyColumn = NSTableColumn; 
+                windowController = RexWindowController; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = RexPropertiesOutlineView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSOutlineView; 
+        }, 
+        {
+            CLASS = RexPropertiesOutlineViewDataSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {windowController = RexWindowController; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = RexRegistryOutlineView; LANGUAGE = ObjC; SUPERCLASS = NSOutlineView; }, 
+        {
+            CLASS = RexRegistryOutlineViewDataSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {windowController = RexWindowController; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                beginFind = id; 
+                browserSelectionChanged = id; 
+                browserView = id; 
+                cancelChangeTimedUpdate = id; 
+                cancelGoToPath = id; 
+                centerSelectionInVisibleArea = id; 
+                changeTimedUpdate = id; 
+                changeView = id; 
+                clearTerminatedObjects = id; 
+                collapseAll = id; 
+                collapseAllPeripheral = id; 
+                dataViewOptionsChanged = id; 
+                expandAll = id; 
+                filteredFindChanged = id; 
+                find = id; 
+                findNext = id; 
+                findOptionsChanged = id; 
+                findPrev = id; 
+                findStep = id; 
+                goToNextPathCrossPlane = id; 
+                goToNextPathInPlane = id; 
+                goToNextSnapshot = id; 
+                goToPrevPathCrossPlane = id; 
+                goToPrevPathInPlane = id; 
+                goToPrevSnapshot = id; 
+                outlineView = id; 
+                outlineViewSelectionChanged = id; 
+                pathPopupChanged = id; 
+                performChangeTimedUpdate = id; 
+                performGoToPath = id; 
+                planePopupChanged = id; 
+                promptForPath = id; 
+                propertiesViewSelectionChanged = id; 
+                resetFindOptions = id; 
+                revealSelectionBundleInFinder = id; 
+                selectChild = id; 
+                selectNextSibling = id; 
+                selectParent = id; 
+                selectPreviousSibling = id; 
+                toggleAutoupdate = id; 
+                toggleFindOptionsDrawer = id; 
+                toggleFindOptionsDrawerButtonClicked = id; 
+                toggleShowTerminatedObjects = id; 
+                update = id; 
+                updateSelectedObject = id; 
+            }; 
+            CLASS = RexWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                entryPathsButton = NSPopUpButton; 
+                explorerSplitView = NSSplitView; 
+                explorerTabView = NSTabView; 
+                filteredFindCheckbox = NSButton; 
+                findBundleIDCheckbox = NSButtonCell; 
+                findClassCheckbox = NSButtonCell; 
+                findField = NSSearchField; 
+                findInheritanceCheckbox = NSButtonCell; 
+                findKeyValueCheckbox = NSButtonCell; 
+                findKeysCheckbox = NSButtonCell; 
+                findNameCheckbox = NSButtonCell; 
+                findOptionsDrawer = NSDrawer; 
+                findOptionsDrawerButton = NSButton; 
+                findPreviewField = NSTextField; 
+                findSpecialCheckbox = NSButtonCell; 
+                findStepper = NSStepper; 
+                findTableView = NSTableView; 
+                findValuesCheckbox = NSButtonCell; 
+                goToPathCancelButton = NSButton; 
+                goToPathField = NSTextField; 
+                goToPathGoButton = NSButton; 
+                goToPathSheet = NSPanel; 
+                ioserviceAttributesView = NSView; 
+                objectActiveCell = NSButtonCell; 
+                objectBundleField = NSTextField; 
+                objectBusyCountField = NSTextField; 
+                objectInheritanceField = NSTextField; 
+                objectMatchedCell = NSButtonCell; 
+                objectNameField = NSTextField; 
+                objectRegisteredCell = NSButtonCell; 
+                objectRetainCountField = NSTextField; 
+                planeListButton = NSPopUpButton; 
+                propertiesOutlineView = NSOutlineView; 
+                registryBrowser = NSBrowser; 
+                registryOutlineView = RexRegistryOutlineView; 
+                systemStatusField1 = NSTextField; 
+                systemStatusField2 = NSTextField; 
+                systemStatusField3 = NSTextField; 
+                timedUpdateCancelButton = NSButton; 
+                timedUpdateField = NSTextField; 
+                timedUpdateSetButton = NSButton; 
+                timedUpdateSheet = NSPanel; 
+                viewStyleControl = NSSegmentedControl; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSDocument; 
+        }
+    ); 
+    IBVersion = 1; 
+}

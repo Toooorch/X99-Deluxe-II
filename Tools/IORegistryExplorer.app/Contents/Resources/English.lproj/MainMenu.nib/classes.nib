@@ -1,0 +1,106 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                clearAll = id; 
+                encodingListChanged = id; 
+                revertToDefault = id; 
+                selectAll = id; 
+                showPanel = id; 
+            }; 
+            CLASS = EncodingManager; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {encodingMatrix = NSMatrix; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = EncodingPopUpButton; LANGUAGE = ObjC; SUPERCLASS = NSPopUpButton; }, 
+        {
+            ACTIONS = {
+                "" = id; 
+                beginFind = id; 
+                browserView = id; 
+                changeTimedUpdate = id; 
+                clearTerminatedObjects = id; 
+                collapseAll = id; 
+                collapseAllPeripheral = id; 
+                dataViewOptionChanged = id; 
+                dataViewOptionsChanged = id; 
+                expandAll = id; 
+                findNext = id; 
+                findNextInAnyPlane = id; 
+                findPrev = id; 
+                findPrevInAnyPlane = id; 
+                goToNextPathCrossPlane = id; 
+                goToNextPathInPlane = id; 
+                goToPrevPathCrossPlane = id; 
+                goToPrevPathInPlane = id; 
+                newDocumentWindow = id; 
+                outlineView = id; 
+                promptForPath = id; 
+                revealSelectionBundleInFinder = id; 
+                selectChild = id; 
+                selectNextSibling = id; 
+                selectParent = id; 
+                selectPreviousSibling = id; 
+                toggleAutoupdate = id; 
+                toggleFindOptionsDrawer = id; 
+                toggleShowTerminatedObjects = id; 
+                toggleTimedUpdate = id; 
+                update = id; 
+                updateSelectedObject = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                clearContainedPropertySettings = id; 
+                clearCustomSettings = id; 
+                clearSubclassSettings = id; 
+                dataOptionsActionMenuChanged = id; 
+                dataViewOptionChanged = id; 
+                setDefaultDataOptions = id; 
+                toggleDataOptionsPanel = id; 
+                userPreferenceChanged = id; 
+            }; 
+            CLASS = RexApplicationDelegate; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                dataOptionsActionItemClearContents = NSMenuItem; 
+                dataOptionsActionItemClearSubclasses = NSMenuItem; 
+                dataOptionsActionItemSetDefaults = NSMenuItem; 
+                dataOptionsActionItemUseShared = NSMenuItem; 
+                dataOptionsActionMenu = NSPopUpButton; 
+                dataOptionsAutomaticCheckbox = NSButton; 
+                dataOptionsBaseMatrix = NSMatrix; 
+                dataOptionsByteOrderMatrix = NSMatrix; 
+                dataOptionsClassPopUpButton = NSPopUpButton; 
+                dataOptionsMessageField = NSTextField; 
+                dataOptionsPanel = NSPanel; 
+                dataOptionsSharedMessageField = NSTextField; 
+                dataOptionsSignMatrix = NSMatrix; 
+                dataOptionsStringEncodingPopUp = EncodingPopUpButton; 
+                dataOptionsTypeMatrix = NSMatrix; 
+                defaultAutoupdateCheckbox = id; 
+                defaultPlanePopUp = NSPopUpButton; 
+                defaultPollIntervalField = NSTextField; 
+                defaultPolledUpdateCheckbox = NSButton; 
+                defaultViewMatrix = NSMatrix; 
+                filteredFindCheckbox = NSButton; 
+                findBundleIDCheckbox = NSButtonCell; 
+                findClassCheckbox = NSButtonCell; 
+                findInheritanceCheckbox = NSButtonCell; 
+                findKeysCheckbox = NSButtonCell; 
+                findNameCheckbox = NSButtonCell; 
+                findOptionsMatrix = NSMatrix; 
+                findSpecialCheckbox = NSButtonCell; 
+                findValuesCheckbox = NSButtonCell; 
+                preferencesWindow = NSWindow; 
+                toggleDataOptionsMenuItem = NSMenuItem; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
