@@ -25,8 +25,15 @@ Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforg
 - Intel® I218V - IntelMausiEthernet.kext [repo](https://github.com/Mieze/IntelMausiEthernet)
 - Intel® I211-A
 
-USB
+**USB**
 - X99_Injector_USB_3.kext
+
+**ACPI Tables**
+- Piker Alpha ssdtPRGen.sh [repo](https://github.com/Piker-Alpha/ssdtPRGen.sh)
+- freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
+
+**XCPM**
+- Piker Alpha patches
 
 **iMessage and iCloud services:**
 use iMessageDebug for extract ROM and MLB(Board Serial Number) from

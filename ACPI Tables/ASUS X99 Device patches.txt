@@ -1,0 +1,396 @@
+# Maintained by:N.Mano
+# Credit: PikeRAlpha, RehabMan
+# Compiler Options:ACPI 6.1
+# Asus X99 Deluxe
+# Bios update 3301
+# Maintained by:N.Mano
+# File:v1.0
+into device name_adr 0x001B0000 set_label
+begin
+HDEF
+end;
+into_all all code_regex ALZA replaceall_matched
+begin
+HDEF
+end;
+into method label _DSM parent_adr 0x001B0000 remove_entry;
+into device name_adr 0x001B0000 insert
+begin
+Method (_DSM, 4, NotSerialized)\n
+        {\n
+            Store (Package ()\n
+                {\n                             
+                          "built-in", Buffer() { 0x00 },\n
+                          "AAPL,slot-name", Buffer() { "Built in" },\n
+                            "hda-gfx",\n 
+                            Buffer ()\n
+                            {\n
+                                "onboard-1"\n
+                            },\n                    
+                    
+                            "layout-id",\n
+                            Buffer ()\n
+                            {\n
+                            0x01, 0x00, 0x00, 0x00\n
+                            }, \n
+                    
+                            "device_type",\n
+                            Buffer ()\n
+                            {\n
+                            "Audio Controller"\n  
+                             },\n
+                           
+                           "name",\n
+                            Buffer ()\n
+                            {\n
+                            "Audio"\n  
+                             },\n
+                            
+                            "PinConfigurations", \n
+                            Buffer ()\n
+                            {\n
+		             0x00\n
+                         }\n
+                }, Local0)\n
+            DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+            Return (Local0)\n
+        }
+end;
+into method label DTGP remove_entry;
+into definitionblock code_regex . insert
+begin
+Method (DTGP, 5, NotSerialized)\n
+{\n
+    If (LEqual (Arg0, Buffer (0x10)\n
+            {\n
+                /* 0000 */    0xC6, 0xB7, 0xB5, 0xA0, 0x18, 0x13, 0x1C, 0x44, \n
+                /* 0008 */    0xB0, 0xC9, 0xFE, 0x69, 0x5E, 0xAF, 0x94, 0x9B\n
+            }))\n
+    {\n
+        If (LEqual (Arg1, One))\n
+        {\n
+            If (LEqual (Arg2, Zero))\n
+            {\n
+                Store (Buffer (One)\n
+                    {\n
+                        0x03\n
+                    }, Arg4)\n
+                Return (One)\n
+            }\n
+            If (LEqual (Arg2, One))\n
+            {\n
+                Return (One)\n
+            }\n
+        }\n
+    }\n
+    Store (Buffer (One)\n
+        {\n
+            0x00\n
+        }, Arg4)\n
+    Return (Zero)\n
+}
+end;
+#Maintained by: N.Mano
+#Before patch manually Rename(Rename H000 to HDA1)
+into device label HDA1 set_label begin HDAU end;
+into_all all code_regex HDA1 replaceall_matched begin HDAU end;
+into method label _DSM parent_label HDAU remove_entry;
+into device label HDAU insert begin
+Method (_DSM, 4, NotSerialized)\n
+        {\n
+            Store (Package ()\n
+                {\n 
+                            "built-in",\n 
+                            Buffer ()\n
+                            {\n
+                                 0x00\n
+                            },\n                            
+                            
+                           "device-id",\n
+                            Buffer ()\n
+                            {\n
+                            0x0A, 0x0E, 0x00, 0x00\n
+                            },\n 
+                                                        
+                            "device_type",\n 
+                            Buffer ()\n
+                            {\n
+                                "Audio"\n
+                            },\n  
+                            
+                            "hda-gfx",\n 
+                            Buffer ()\n
+                            {\n
+                                "onboard-2"\n
+                            },\n  
+                       
+                            "name", \n
+                            Buffer ()\n
+                            {\n
+                            "HDAU"\n
+                         }\n
+                }, Local0)\n
+            DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+            Return (Local0)\n
+        }
+end;
+# Insert device GLAN into device with _ADR 0x00190000
+into device name_adr Zero parent_adr 0x00190000 remove_entry;
+into device name_adr 0x00190000 insert
+begin
+Name (_SUN, 0x02)  // _SUN: Slot User Number\n
+Method (_DSM, 4, NotSerialized)\n
+        {\n
+            Store (Package ()\n
+                {\n                            
+                            "model",\n 
+                            Buffer ()\n
+                            {\n
+                                "Intel i218V"\n
+                            },\n 
+                             
+                            "name",\n 
+                            Buffer ()\n
+                            {\n
+                                "Ethernet Controller"\n
+                            },\n 
+
+                            "built-in",\n 
+                            Buffer()\n 
+                            {\n 
+                            0x00\n 
+                            },\n 
+                           
+                            "subsystem-id",\n
+                            Buffer ()\n
+                            {\n
+                                0x00, 0xe0, 0x00, 0x00\n
+                            },\n 
+                            
+                            "device-id",\n
+                            Buffer ()\n
+                            {\n
+                                0xa1, 0x15, 0x00, 0x00\n
+                            },\n 
+                           
+                            "subsystem-vendor-id",\n
+                            Buffer ()\n
+                            {\n
+                                0x58, 0x14, 0x00, 0x00\n
+                         }\n
+                }, Local0)\n
+            DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+            Return (Local0)\n
+        }
+end;
+# Device injection for the Intel 99 Series SATA
+into device label SAT1 insert begin
+Name (_SUN, 0x0A)  // _SUN: Slot User Number\n
+Method (_DSM, 4, NotSerialized)\n
+{\n
+	Store (Package (0x0A) {\n
+		"name", "Intel AHCI Controller",\n
+		"model", Buffer () {"Intel 99 Series Chipset Family SATA Controller"},\n
+          "compatible", Buffer() { "pci8086,8d02"},\n
+          "device_type", Buffer () {"AHCI Controller"},\n
+		"device-id", Buffer () {0x02,0x8d,0x00,0x00}\n
+	}, Local0)\n
+	DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+	Return (Local0)\n
+}
+end;
+# Device injection for the Intel 99 Series sSATA
+into device label EVSS insert begin
+Name (_SUN, 0x0B)  // _SUN: Slot User Number\n
+Method (_DSM, 4, NotSerialized)\n
+{\n
+	Store (Package (0x0A) {\n
+		"name", "Intel sSATA Controller",\n
+		"model", Buffer () {"Intel 99 Series Chipset Family sSATA Controller"},\n
+           "compatible", Buffer() { "pci8086,8d62"},\n
+          "device_type", Buffer () {"AHCI Controller"},\n
+		"device-id", Buffer () {0x62,0x8d,0x00,0x00}\n
+	}, Local0)\n
+	DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+	Return (Local0)\n
+}
+end;
+#Maintained by: N.Mano
+into device label EHC1 insert begin
+Name (_SUN, 0x0C)  // _SUN: Slot User Number\n
+Method (_DSM, 4, NotSerialized)\n
+                {\n
+                    Store (Package ()\n
+                        {\n                           
+                            "device-id", \n
+                            Buffer ()\n
+                            {\n
+                                0x26, 0x8d, 0x00, 0x00\n
+                            }, \n
+		"name", Buffer() {"Intel EH01 Controller"},\n
+		"model", Buffer () {"Intel C610/X99 Series Chipset USB Enhanced Host Controller #1"},\n
+               "device_type", Buffer () {"USB Controller"},\n
+                            "AAPL,clock-id", \n
+                            Buffer ()\n
+                            {\n
+                                0x01\n
+                            }\n
+                        }, Local0)\n
+                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+                    Return (Local0)\n
+                }
+end;
+#Maintained by: N.Mano
+into device label EHC2 insert begin
+Name (_SUN, 0x0D)  // _SUN: Slot User Number\n
+Method (_DSM, 4, NotSerialized)\n
+                {\n
+                    Store (Package ()\n
+                        {\n                             
+                            "device-id", \n
+                            Buffer ()\n
+                            {\n
+                                0x2d, 0x8d, 0x00, 0x00\n
+                            }, \n
+		"name", Buffer() {"Intel EH02 Controller"},\n
+		"model", Buffer () {"Intel C610/X99 Series Chipset USB Enhanced Host Controller #2"},\n
+               "device_type", Buffer () {"USB Controller"},\n
+                            "AAPL,clock-id", \n
+                            Buffer ()\n
+                            {\n
+                                0x01\n
+                            }\n
+                        }, Local0)\n
+                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+                    Return (Local0)\n
+                }
+end;
+# Add the missing MCHC device
+into device label MCHC parent_label PCI0 remove_entry;
+into device label PCI0 insert begin
+Device (MCHC)\n
+{\n
+	Name (_ADR, Zero)\n
+}
+end;
+# Device injection for the Intel 99 Series SMBS
+# Fix the SMBUS to allow for loading of the AppleSMBusController.kext
+into device label BUS0 parent_label SMBS remove_entry;
+into device label SMBS insert begin
+Device (BUS0)\n
+{\n
+	Name (_CID, "smbus")\n
+	Name (_ADR, Zero)\n
+	Device (DVL0)\n
+	{\n
+		Name (_ADR, 0x57)\n
+		Name (_CID, "diagsvault")\n
+		Method (_DSM, 4, NotSerialized)\n
+		{\n
+			Store (Package (0x02)
+                     {\n
+			 "device-id",\n 
+                            Buffer (0x04)\n
+                            {\n
+                                0x22, 0x8d, 0x00, 0x00\n
+                            }\n
+                          }, Local0)\n
+			DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+			Return (Local0)\n
+		}\n
+	}\n
+}
+end;
+#Maintained by: N.Mano
+# 1. Under Device LPC0 - Verify IOReg/LPC0
+into method label _adr parent_adr 0x001F0000 remove_entry;
+into device name_adr 0x001F0000 insert
+begin
+Name (_SUN, 0x0F)  // _SUN: Slot User Number\n
+Method (_DSM, 4, NotSerialized)\n
+{\n
+    Store (Package ()\n
+        {\n
+            "compatible", \n
+            Buffer ()\n
+            {\n
+                "pci8086,9c43"\n
+            }\n
+        }, Local0)\n
+    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))\n
+    Return (Local0)\n
+}
+end;
+#Maintained by: RehabMan,N.Mano for: X99
+#usb_prw_0x6d_xhc.txt
+
+# remove _PRW methods to prevent instant wake
+# if _PRW objects are methods
+into method label _PRW parent_adr 0x001D0000 remove_entry;
+into method label _PRW parent_adr 0x001A0000 remove_entry;
+into method label _PRW parent_adr 0x00140000 remove_entry;
+into method label _PRW parent_adr 0x001B0000 remove_entry;
+# some other LAN cards use 0x00190000
+into method label _PRW parent_adr 0x00190000 remove_entry;
+into method label _PRW parent_adr 0x001C0004 remove_entry;
+# some other  cards (RP08Intensity Pro,RP07 USB3 Card,RP04 WIFI card,RP01,RP02,RP03,RP06)
+into method label _PRW parent_adr 0x001C0007 remove_entry;
+into method label _PRW parent_adr 0x001C0006 remove_entry;
+into method label _PRW parent_adr 0x001C0003 remove_entry;
+into method label _PRW parent_adr 0x001C0000 remove_entry;
+into method label _PRW parent_adr 0x001C0001 remove_entry;
+into method label _PRW parent_adr 0x001C0002 remove_entry;
+into method label _PRW parent_adr 0x001C0005 remove_entry;
+
+# if _PRW methods are stuffed into a separate scope
+into method label _PRW parent_label _SB.PCI0.EHC1 remove_entry;
+into method label _PRW parent_label _SB.PCI0.EHC2 remove_entry;
+into method label _PRW parent_label _SB.PCI0.XHC1 remove_entry;
+into method label _PRW parent_label \_SB.PCI0.EHC1 remove_entry;
+into method label _PRW parent_label \_SB.PCI0.EHC2 remove_entry;
+into method label _PRW parent_label \_SB.PCI0.XHC1 remove_entry;
+
+# if _PRW objects are names
+into device name_adr 0x001D0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001A0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x00140000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001B0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x00190000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0004 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0007 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0006 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0003 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0001 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0002 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0005 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+
+# some _PRW have three entries in the Package
+into device name_adr 0x001D0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001A0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x00140000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001B0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x00190000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0004 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0007 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0006 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0003 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0000 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0001 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0002 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+into device name_adr 0x001C0005 code_regex Name.*_PRW.*\n.*\n.*\n.*\n.*\n.*\}\) remove_matched;
+
+# seems to work better if _PRW is present, but returns 0 (original was 3) for sleep state
+into device name_adr 0x001D0000 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001A0000 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x00140000 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001B0000 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x00190000 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0004 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0007 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0006 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0003 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0000 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0001 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0002 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
+into device name_adr 0x001C0005 insert begin Name(_PRW, Package() { 0x6D, 0 }) end;
