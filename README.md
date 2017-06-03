@@ -21,6 +21,12 @@ Currenly used Clover version: **Clover_v2.4k_r4077**
 
 **Network:**
 - WiFi - OOB
+- BT - BrcmBluetoothInjector.kext
+- Intel® I218V - IntelMausiEthernet.kext
+- Intel® I211-A
+
+USB
+- X99_Injector_USB_3.kext
 
 **iMessage and iCloud services:**
 use iMessageDebug for extract ROM and MLB(Board Serial Number) from
