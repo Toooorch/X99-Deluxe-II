@@ -103,13 +103,13 @@
 		<key>AppleRTC</key>
 		<false/>
 		<key>AsusAICPUPM</key>
-		<false/>
+		<true/>
 		<key>Debug</key>
 		<false/>
 		<key>KernelCpu</key>
 		<false/>
 		<key>KernelHaswellE</key>
-		<false/>
+		<true/>
 		<key>KernelLapic</key>
 		<false/>
 		<key>KernelPm</key>
@@ -118,89 +118,9 @@
 		<array>
 			<dict>
 				<key>Comment</key>
-				<string>_xcpm_performance fix 1 (wrsmr fix to get CPU max) © okrasit</string>
-				<key>Disabled</key>
-				<false/>
-				<key>Find</key>
-				<data>
-				idjB4Ai5mQE=
-				</data>
-				<key>MatchOS</key>
-				<string>10.12</string>
-				<key>Replace</key>
-				<data>
-				uAArAAC5mQE=
-				</data>
-			</dict>
-			<dict>
-				<key>Comment</key>
-				<string>_xcpm_core_scope_msrs  © Pike R. Alpha</string>
-				<key>Disabled</key>
-				<false/>
-				<key>Find</key>
-				<data>
-				vgIAAAAx0uhs/P//
-				</data>
-				<key>MatchOS</key>
-				<string>10.12</string>
-				<key>Replace</key>
-				<data>
-				vgIAAAAx0pCQkJCQ
-				</data>
-			</dict>
-			<dict>
-				<key>Comment</key>
-				<string>_xcpm_SMT_scope_msrs  © Pike R. Alpha</string>
-				<key>Disabled</key>
-				<false/>
-				<key>Find</key>
-				<data>
-				vgsAAABd6QgAAAA=
-				</data>
-				<key>MatchOS</key>
-				<string>10.12</string>
-				<key>Replace</key>
-				<data>
-				vgsAAABdw5CQkJA=
-				</data>
-			</dict>
-			<dict>
-				<key>Comment</key>
-				<string>_xcpm_pkg_scope_msr  © Pike R. Alpha</string>
-				<key>Disabled</key>
-				<false/>
-				<key>Find</key>
-				<data>
-				vgcAAAAx0uiU/P//
-				</data>
-				<key>MatchOS</key>
-				<string>10.12</string>
-				<key>Replace</key>
-				<data>
-				vgcAAAAx0pCQkJCQ
-				</data>
-			</dict>
-			<dict>
-				<key>Comment</key>
-				<string>_xcpm_bootstrap Sierra © Pike R. Alpha</string>
-				<key>Disabled</key>
-				<false/>
-				<key>Find</key>
-				<data>
-				g8PEg/si
-				</data>
-				<key>MatchOS</key>
-				<string>10.12</string>
-				<key>Replace</key>
-				<data>
-				g8PBg/si
-				</data>
-			</dict>
-			<dict>
-				<key>Comment</key>
 				<string>Haswell-E CPUID Patch</string>
 				<key>Disabled</key>
-				<false/>
+				<true/>
 				<key>Find</key>
 				<data>
 				g8Dp
@@ -214,25 +134,25 @@
 			</dict>
 			<dict>
 				<key>Comment</key>
-				<string>_xcpm_idle Replace All fix by Pike R. Alpha</string>
+				<string>_xcpm_performance fix 1 (wrsmr fix to get CPU max) © okrasit</string>
 				<key>Disabled</key>
-				<false/>
+				<true/>
 				<key>Find</key>
 				<data>
-				ILniAAAADzA=
+				idjB4Ai5mQE=
 				</data>
 				<key>MatchOS</key>
 				<string>10.12</string>
 				<key>Replace</key>
 				<data>
-				ILniAAAAkJA=
+				uAArAAC5mQE=
 				</data>
 			</dict>
 			<dict>
 				<key>Comment</key>
 				<string>_xcpm_SMT_scope_msrs  © Pike R. Alpha</string>
 				<key>Disabled</key>
-				<false/>
+				<true/>
 				<key>Find</key>
 				<data>
 				vgsAAAAx0uhZ/P//
@@ -242,6 +162,86 @@
 				<key>Replace</key>
 				<data>
 				vgsAAAAx0pCQkJCQ
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>_xcpm_bootstrap Sierra © Pike R. Alpha</string>
+				<key>Disabled</key>
+				<true/>
+				<key>Find</key>
+				<data>
+				g8PEg/si
+				</data>
+				<key>MatchOS</key>
+				<string>10.12</string>
+				<key>Replace</key>
+				<data>
+				g8PBg/si
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>_xcpm_core_scope_msrs  © Pike R. Alpha</string>
+				<key>Disabled</key>
+				<true/>
+				<key>Find</key>
+				<data>
+				vgIAAAAx0uhs/P//
+				</data>
+				<key>MatchOS</key>
+				<string>10.12</string>
+				<key>Replace</key>
+				<data>
+				vgIAAAAx0pCQkJCQ
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>_xcpm_pkg_scope_msr  © Pike R. Alpha</string>
+				<key>Disabled</key>
+				<true/>
+				<key>Find</key>
+				<data>
+				vgcAAAAx0uiU/P//
+				</data>
+				<key>MatchOS</key>
+				<string>10.12</string>
+				<key>Replace</key>
+				<data>
+				vgcAAAAx0pCQkJCQ
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>_xcpm_SMT_scope_msrs  © Pike R. Alpha</string>
+				<key>Disabled</key>
+				<true/>
+				<key>Find</key>
+				<data>
+				vgsAAABd6QgAAAA=
+				</data>
+				<key>MatchOS</key>
+				<string>10.12</string>
+				<key>Replace</key>
+				<data>
+				vgsAAABdw5CQkJA=
+				</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>_xcpm_idle Replace All fix by Pike R. Alpha</string>
+				<key>Disabled</key>
+				<true/>
+				<key>Find</key>
+				<data>
+				ILniAAAADzA=
+				</data>
+				<key>MatchOS</key>
+				<string>10.12</string>
+				<key>Replace</key>
+				<data>
+				ILniAAAAkJA=
 				</data>
 			</dict>
 		</array>
@@ -287,8 +287,6 @@
 		<string>0x28</string>
 		<key>CsrActiveConfig</key>
 		<string>0x67</string>
-		<key>MLB</key>
-		<string>C02032109R5DC771H</string>
 	</dict>
 	<key>SMBIOS</key>
 	<dict>
