@@ -15,6 +15,8 @@ Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforg
 - WD Blue 1TB
 - Apple HDD 1TB
 
+- macOS version - 10.12.5 (16F73)
+
 ## **Drivers & Patches**
 **Audio:**
 - VoodooHDA-2.8.8 > then manually install 2.8.9.kext (works great in this order) [repo](https://sourceforge.net/projects/voodoohda/)
