@@ -15,7 +15,7 @@ Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforg
 - WD Blue 1TB
 - Apple HDD 1TB
 
-- macOS version - 10.12.5 (16F73)
+- macOS version - 10.12.6
 
 ## **Drivers & Patches**
 **Audio:**
