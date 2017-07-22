@@ -1,7 +1,7 @@
 # X99DeluxeII
 All my files (including 3rd party work) for X99 Deluxe II based hack.
 
-Currenly used Clover version: **Clover_v2.4k_r4077** [clover](https://sourceforge.net/projects/cloverefiboot/)
+Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforge.net/projects/cloverefiboot/)
 
 ## **Setup:**
 - Asus X99 Deluxe II Rev 1.02 [asus](https://www.asus.com/us/Motherboards/X99-DELUXE-II/)
