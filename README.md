@@ -12,8 +12,7 @@ Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforg
 
 - Samsung 960 PRO 512GB
 - Samsung 850 EVO 250G
-- WD Blue 1TB
-- Apple HDD 1TB
+- Seagate FireCuda Laptop SSHD 2TB
 
 - macOS version - 10.12.6
 
