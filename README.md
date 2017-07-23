@@ -24,7 +24,7 @@ Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforg
 - WiFi - OOB
 - BT - BrcmBluetoothInjector.kext [repo](https://github.com/the-darkvoid/BrcmPatchRAM)
 - Intel® I218V - IntelMausiEthernet.kext [repo](https://github.com/Mieze/IntelMausiEthernet)
-- Intel® I211-A
+- Intel® I211-A - It does not work properly yet. I don't have taste to solve this.
 
 **USB**
 - X99_Injector_USB_3.kext
