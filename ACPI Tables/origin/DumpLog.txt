@@ -1,0 +1,132 @@
+101:640  1:143  Found BIOS RSDP at FF000
+101:640  0:000  Printing ACPI tables from RSDP FF000 ...
+101:640  0:000   FF000: 'RSD PTR ', Rev: 2 (Acpi 2.0 or newer), Len: 36
+101:640  0:000    (Xsdt: 3A479090, Rsdt: 3A479028)
+101:640  0:000    3A479090: 'XSDT', 'A M I ', Rev: 1, Len: 156
+101:640  0:000    3A479028: 'RSDT', 'A M I ', Rev: 1, Len: 96
+101:640  0:000    Tables in Xsdt: 15
+101:640  0:000    0. 3A4AFC38: 'FACP', 'A M I ', Rev: 5, Len: 268
+101:640  0:000        (Dsdt: 3A4791C8, Facs: 3C6C6F80, XDsdt: 3A4791C8, XFacs: 0)
+101:640  0:000        3A4791C8: 'DSDT', 'A M I ', Rev: 2, Len: 223856
+101:643  0:003        3C6C6F80: 'FACS', Ver: 2, Len: 64
+101:643  0:000    1. 3A4AFD48: 'APIC', 'A M I ', Rev: 3, Len: 256
+101:643  0:000    2. 3A4AFE48: 'FPDT', 'A M I ', Rev: 1, Len: 68
+101:643  0:000    3. 3A4AFE90: 'FIDT', 'A M I ', Rev: 1, Len: 156
+101:643  0:000    4. 3A4AFF30: 'MCFG', 'A M I', Rev: 1, Len: 60
+101:643  0:000    5. 3A4C6938: 'ASF!', ' HCG', Rev: 32, Len: 160
+101:643  0:000    6. 3A4AFFC8: 'SSDT', 'IdeTable', Rev: 1, Len: 1173
+101:643  0:000    7. 3A4B0460: 'UEFI', 'A M I ', Rev: 1, Len: 66
+101:643  0:000    8. 3A4B04A8: 'HPET', 'A M I ', Rev: 1, Len: 56
+101:643  0:000    9. 3A4B04E0: 'MSCT', 'A M I ', Rev: 1, Len: 144
+101:643  0:000    10. 3A4B0570: 'SLIT', 'A M I ', Rev: 1, Len: 45
+101:643  0:000    11. 3A4B05A0: 'SRAT', 'A M I ', Rev: 3, Len: 4440
+101:643  0:000    12. 3A4B16F8: 'WDDT', 'A M I ', Rev: 1, Len: 64
+101:643  0:000    13. 3A4B1738: 'SSDT', 'PmMgt', Rev: 2, Len: 86465
+101:643  0:000    14. 3A4C6900: 'BGRT', 'A M I ', Rev: 1, Len: 56
+101:643  0:000    Tables in Rsdt: 15
+101:643  0:000    0. 3A479140: 'FACP', 'A M I ', Rev: 2, Len: 132
+101:643  0:000        (Dsdt: 3A4791C8, Facs: 3C6C6F40)
+101:643  0:000        3A4791C8: 'DSDT', 'A M I ', Rev: 2, Len: 223856
+101:647  0:003        3C6C6F40: 'FACS', Ver: 0, Len: 64
+101:647  0:000    1. 3A4AFD48: 'APIC', 'A M I ', Rev: 3, Len: 256
+101:647  0:000    2. 3A4AFE48: 'FPDT', 'A M I ', Rev: 1, Len: 68
+101:647  0:000    3. 3A4AFE90: 'FIDT', 'A M I ', Rev: 1, Len: 156
+101:647  0:000    4. 3A4AFF30: 'MCFG', 'A M I', Rev: 1, Len: 60
+101:647  0:000    5. 3A4C6938: 'ASF!', ' HCG', Rev: 32, Len: 160
+101:647  0:000    6. 3A4AFFC8: 'SSDT', 'IdeTable', Rev: 1, Len: 1173
+101:647  0:000    7. 3A4B0460: 'UEFI', 'A M I ', Rev: 1, Len: 66
+101:647  0:000    8. 3A4B04A8: 'HPET', 'A M I ', Rev: 1, Len: 56
+101:647  0:000    9. 3A4B04E0: 'MSCT', 'A M I ', Rev: 1, Len: 144
+101:647  0:000    10. 3A4B0570: 'SLIT', 'A M I ', Rev: 1, Len: 45
+101:647  0:000    11. 3A4B05A0: 'SRAT', 'A M I ', Rev: 3, Len: 4440
+101:647  0:000    12. 3A4B16F8: 'WDDT', 'A M I ', Rev: 1, Len: 64
+101:647  0:000    13. 3A4B1738: 'SSDT', 'PmMgt', Rev: 2, Len: 86465
+101:647  0:000    14. 3A4C6900: 'BGRT', 'A M I ', Rev: 1, Len: 56
+101:647  0:000  Found UEFI Acpi 2.0 RSDP at 3A479000
+101:647  0:000  Saving ACPI tables from RSDP 3A479000 to EFI\CLOVER\ACPI\origin ...
+101:647  0:000   3A479000: 'RSD PTR ', Rev: 2 (Acpi 2.0 or newer), Len: 36 -> RSDP.aml
+101:731  0:083    (Xsdt: 3A479090, Rsdt: 3A479028)
+101:731  0:000    3A479090: 'XSDT', 'A M I ', Rev: 1, Len: 156 -> XSDT.aml
+101:792  0:061    3A479028: 'RSDT', 'A M I ', Rev: 1, Len: 96 -> RSDT.aml
+101:853  0:061    Tables in Xsdt: 15
+101:853  0:000    0. 3A4AFC38: 'FACP', 'A M I ', Rev: 5, Len: 268 -> FACP.aml
+101:915  0:061        (Dsdt: 3A4791C8, Facs: 3C6C6F80, XDsdt: 3A4791C8, XFacs: 0)
+101:915  0:000        3A4791C8: 'DSDT', 'A M I ', Rev: 2, Len: 223856 -> DSDT.aml
+101:999  0:083        3C6C6F80: 'FACS', Ver: 2, Len: 64 -> FACS.aml
+102:060  0:061    1. 3A4AFD48: 'APIC', 'A M I ', Rev: 3, Len: 256 -> APIC.aml
+102:122  0:061    2. 3A4AFE48: 'FPDT', 'A M I ', Rev: 1, Len: 68 -> FPDT.aml
+102:183  0:061    3. 3A4AFE90: 'FIDT', 'A M I ', Rev: 1, Len: 156 -> FIDT.aml
+102:244  0:061    4. 3A4AFF30: 'MCFG', 'A M I', Rev: 1, Len: 60 -> MCFG.aml
+102:306  0:061    5. 3A4C6938: 'ASF!', ' HCG', Rev: 32, Len: 160 -> ASF!.aml
+102:367  0:061    6. 3A4AFFC8: 'SSDT', 'IdeTable', Rev: 1, Len: 1173 -> SSDT-0.aml
+102:429  0:061    7. 3A4B0460: 'UEFI', 'A M I ', Rev: 1, Len: 66 -> UEFI.aml
+102:490  0:061    8. 3A4B04A8: 'HPET', 'A M I ', Rev: 1, Len: 56 -> HPET.aml
+102:552  0:061    9. 3A4B04E0: 'MSCT', 'A M I ', Rev: 1, Len: 144 -> MSCT.aml
+102:640  0:088    10. 3A4B0570: 'SLIT', 'A M I ', Rev: 1, Len: 45 -> SLIT.aml
+102:752  0:112    11. 3A4B05A0: 'SRAT', 'A M I ', Rev: 3, Len: 4440 -> SRAT.aml
+102:819  0:067    12. 3A4B16F8: 'WDDT', 'A M I ', Rev: 1, Len: 64 -> WDDT.aml
+102:886  0:066    13. 3A4B1738: 'SSDT', 'PmMgt', Rev: 2, Len: 86465 -> SSDT-1.aml
+102:963  0:076    14. 3A4C6900: 'BGRT', 'A M I ', Rev: 1, Len: 56 -> BGRT.aml
+103:035  0:072    Tables in Rsdt: 15
+103:035  0:000    0. 3A479140: 'FACP', 'A M I ', Rev: 2, Len: 132 -> RSDT-FACP.aml
+103:108  0:072        (Dsdt: 3A4791C8, Facs: 3C6C6F40)
+103:108  0:000        3A4791C8: 'DSDT', 'A M I ', Rev: 2, Len: 223856
+103:112  0:003        3C6C6F40: 'FACS', Ver: 0, Len: 64 -> RSDT-FACS.aml
+103:184  0:072    1. 3A4AFD48: 'APIC', 'A M I ', Rev: 3, Len: 256
+103:184  0:000    2. 3A4AFE48: 'FPDT', 'A M I ', Rev: 1, Len: 68
+103:184  0:000    3. 3A4AFE90: 'FIDT', 'A M I ', Rev: 1, Len: 156
+103:184  0:000    4. 3A4AFF30: 'MCFG', 'A M I', Rev: 1, Len: 60
+103:184  0:000    5. 3A4C6938: 'ASF!', ' HCG', Rev: 32, Len: 160
+103:184  0:000    6. 3A4AFFC8: 'SSDT', 'IdeTable', Rev: 1, Len: 1173
+103:184  0:000    7. 3A4B0460: 'UEFI', 'A M I ', Rev: 1, Len: 66
+103:184  0:000    8. 3A4B04A8: 'HPET', 'A M I ', Rev: 1, Len: 56
+103:184  0:000    9. 3A4B04E0: 'MSCT', 'A M I ', Rev: 1, Len: 144
+103:184  0:000    10. 3A4B0570: 'SLIT', 'A M I ', Rev: 1, Len: 45
+103:184  0:000    11. 3A4B05A0: 'SRAT', 'A M I ', Rev: 3, Len: 4440
+103:184  0:000    12. 3A4B16F8: 'WDDT', 'A M I ', Rev: 1, Len: 64
+103:184  0:000    13. 3A4B1738: 'SSDT', 'PmMgt', Rev: 2, Len: 86465
+103:184  0:000    14. 3A4C6900: 'BGRT', 'A M I ', Rev: 1, Len: 56
+103:184  0:000  Found UEFI Acpi 1.0 RSDP at 3A479000
+103:184  0:000  Printing ACPI tables from RSDP 3A479000 ...
+103:184  0:000   3A479000: 'RSD PTR ', Rev: 2 (Acpi 2.0 or newer), Len: 36
+103:184  0:000    (Xsdt: 3A479090, Rsdt: 3A479028)
+103:184  0:000    3A479090: 'XSDT', 'A M I ', Rev: 1, Len: 156
+103:184  0:000    3A479028: 'RSDT', 'A M I ', Rev: 1, Len: 96
+103:184  0:000    Tables in Xsdt: 15
+103:184  0:000    0. 3A4AFC38: 'FACP', 'A M I ', Rev: 5, Len: 268
+103:184  0:000        (Dsdt: 3A4791C8, Facs: 3C6C6F80, XDsdt: 3A4791C8, XFacs: 0)
+103:184  0:000        3A4791C8: 'DSDT', 'A M I ', Rev: 2, Len: 223856
+103:188  0:003        3C6C6F80: 'FACS', Ver: 2, Len: 64
+103:188  0:000    1. 3A4AFD48: 'APIC', 'A M I ', Rev: 3, Len: 256
+103:188  0:000    2. 3A4AFE48: 'FPDT', 'A M I ', Rev: 1, Len: 68
+103:188  0:000    3. 3A4AFE90: 'FIDT', 'A M I ', Rev: 1, Len: 156
+103:188  0:000    4. 3A4AFF30: 'MCFG', 'A M I', Rev: 1, Len: 60
+103:188  0:000    5. 3A4C6938: 'ASF!', ' HCG', Rev: 32, Len: 160
+103:188  0:000    6. 3A4AFFC8: 'SSDT', 'IdeTable', Rev: 1, Len: 1173
+103:188  0:000    7. 3A4B0460: 'UEFI', 'A M I ', Rev: 1, Len: 66
+103:188  0:000    8. 3A4B04A8: 'HPET', 'A M I ', Rev: 1, Len: 56
+103:188  0:000    9. 3A4B04E0: 'MSCT', 'A M I ', Rev: 1, Len: 144
+103:188  0:000    10. 3A4B0570: 'SLIT', 'A M I ', Rev: 1, Len: 45
+103:188  0:000    11. 3A4B05A0: 'SRAT', 'A M I ', Rev: 3, Len: 4440
+103:188  0:000    12. 3A4B16F8: 'WDDT', 'A M I ', Rev: 1, Len: 64
+103:188  0:000    13. 3A4B1738: 'SSDT', 'PmMgt', Rev: 2, Len: 86465
+103:188  0:000    14. 3A4C6900: 'BGRT', 'A M I ', Rev: 1, Len: 56
+103:188  0:000    Tables in Rsdt: 15
+103:188  0:000    0. 3A479140: 'FACP', 'A M I ', Rev: 2, Len: 132
+103:188  0:000        (Dsdt: 3A4791C8, Facs: 3C6C6F40)
+103:188  0:000        3A4791C8: 'DSDT', 'A M I ', Rev: 2, Len: 223856
+103:191  0:003        3C6C6F40: 'FACS', Ver: 0, Len: 64
+103:191  0:000    1. 3A4AFD48: 'APIC', 'A M I ', Rev: 3, Len: 256
+103:191  0:000    2. 3A4AFE48: 'FPDT', 'A M I ', Rev: 1, Len: 68
+103:191  0:000    3. 3A4AFE90: 'FIDT', 'A M I ', Rev: 1, Len: 156
+103:191  0:000    4. 3A4AFF30: 'MCFG', 'A M I', Rev: 1, Len: 60
+103:191  0:000    5. 3A4C6938: 'ASF!', ' HCG', Rev: 32, Len: 160
+103:191  0:000    6. 3A4AFFC8: 'SSDT', 'IdeTable', Rev: 1, Len: 1173
+103:191  0:000    7. 3A4B0460: 'UEFI', 'A M I ', Rev: 1, Len: 66
+103:191  0:000    8. 3A4B04A8: 'HPET', 'A M I ', Rev: 1, Len: 56
+103:191  0:000    9. 3A4B04E0: 'MSCT', 'A M I ', Rev: 1, Len: 144
+103:191  0:000    10. 3A4B0570: 'SLIT', 'A M I ', Rev: 1, Len: 45
+103:191  0:000    11. 3A4B05A0: 'SRAT', 'A M I ', Rev: 3, Len: 4440
+103:191  0:000    12. 3A4B16F8: 'WDDT', 'A M I ', Rev: 1, Len: 64
+103:191  0:000    13. 3A4B1738: 'SSDT', 'PmMgt', Rev: 2, Len: 86465
+103:191  0:000    14. 3A4C6900: 'BGRT', 'A M I ', Rev: 1, Len: 56
