@@ -36,21 +36,14 @@ Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforg
 - Piker Alpha Patches
 - VoodooTSCSync.kext
 - MacPro Vectors through - freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
-
 X86PLatform.kext loaded, native PM
 
 **NVMe**
-- Piker Alpha Patch & RehabMan
+- Piker Alpha Patch & RehabMan fix
 
 ## **BIOS Settings:**
-Changed values, default values on X99 are not listen.
-
-Boot
 - CMS - Disabled
 - Secure Boot - Other OS
-
-Advanced USB Configuration
-- EHCI Hand-Off - Enabled
 
 ## **System Services**
 **iMessage and iCloud services:**
