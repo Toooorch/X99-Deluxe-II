@@ -59,3 +59,5 @@ use iMessageDebug for extract ROM and MLB(Board Serial Number) from
 
 **never install OS with those numbers** otherwise Apple will block them
 and you will have to call Apple support (and that is horrible thing trust me).
+
+Read [iMessage explaned](http://www.insanelymac.com/forum/topic/298027-guide-aio-guides-for-hackintosh/page-9#entry2060421)
