@@ -1,7 +1,7 @@
 # X99DeluxeII
 All my files (including 3rd party work) for X99 Deluxe II based hack.
 
-Currenly used Clover version: **Clover_v2.4k_r4152** [clover](https://sourceforge.net/projects/cloverefiboot/)
+Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforge.net/projects/cloverefiboot/)
 
 ## **Setup:**
 - Asus X99 Deluxe II Rev 1.02 [asus](https://www.asus.com/us/Motherboards/X99-DELUXE-II/)
@@ -18,26 +18,29 @@ Currenly used Clover version: **Clover_v2.4k_r4152** [clover](https://sourceforg
 
 ## **Drivers & Patches**
 **Audio:**
-- VoodooHDA-2.8.8 > then manually install 2.8.9.kext (works great in this order) [repo](https://sourceforge.net/projects/voodoohda/)
+- VoodooHDA 2.9.0 Clover-V10 - works great even for DisplayPort and HDMI audio
 
 **Network:**
 - WiFi - OOB
 - BT - BrcmBluetoothInjector.kext [repo](https://github.com/the-darkvoid/BrcmPatchRAM)
 - Intel® I218V - IntelMausiEthernet.kext [repo](https://github.com/Mieze/IntelMausiEthernet)
-- Intel® I211-A - It does not work properly yet. I don't have taste to solve this.
+- Intel® I211-A - SmallTreeIntel82576.kext
 
 **USB**
 - X99_Injector_USB_3.kext
 
 **ACPI Tables**
 - Piker Alpha ssdtPRGen.sh [repo](https://github.com/Piker-Alpha/ssdtPRGen.sh)
-- freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
 
 **XCPM**
 - Piker Alpha Patches
+- VoodooTSCSync.kext
+- MacPro Vectors through - freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
+
+X86PLatform.kext loaded, native PM
 
 **NVMe**
-- Piker Alpha Patch
+- Piker Alpha Patch & RehabMan
 
 ## **BIOS Settings:**
 Changed values, default values on X99 are not listen.
@@ -48,9 +51,6 @@ Boot
 
 Advanced USB Configuration
 - EHCI Hand-Off - Enabled
-
-Onboard Devices
-- ASMEDIA USB 3.1 Battery Charging Support - Enabled
 
 ## **System Services**
 **iMessage and iCloud services:**
