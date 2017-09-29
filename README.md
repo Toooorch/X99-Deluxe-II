@@ -14,7 +14,7 @@ Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforg
 - Samsung 850 EVO 250G
 - Seagate FireCuda Laptop SSHD 2TB
 
-- macOS version - 10.12.6
+- macOS version - 10.13 (17A365)
 
 ## **Drivers & Patches**
 **Audio:**
