@@ -1,2 +1,2 @@
 echo Make Install Medium on disk “Install”
-sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/Install --applicationpath /Applications/Install\ macOS\ High\ Sierra.app
+sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/Install --applicationpath /Applications/Install\ macOS\ High\ Sierra.app —nointeraction

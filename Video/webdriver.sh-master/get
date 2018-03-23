@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Usage:
+#
+# source <(curl -s https://raw.githubusercontent.com/vulgo/webdriver.sh/v1.3.0/get)
+#
+INSTALL_DIR="webdriver.sh"
+SCRIPT_FILENAME="webdriver.sh"
+PATCHER_FILENAME="clover-patcher"
+if [[ -d "$INSTALL_DIR" ]]; then
+	rm -r "$INSTALL_DIR"; fi
+mkdir "$INSTALL_DIR"
+curl -s -o ./"$INSTALL_DIR"/"$SCRIPT_FILENAME" "https://raw.githubusercontent.com/vulgo/webdriver.sh/v1.3.0/webdriver.sh"
+curl -s -o ./"$INSTALL_DIR"/"$PATCHER_FILENAME" "https://raw.githubusercontent.com/vulgo/webdriver.sh/v1.3.0/libexec/bin/clover-patcher"
+chmod +x ./"$INSTALL_DIR"/"$SCRIPT_FILENAME"
+chmod +x ./"$INSTALL_DIR"/"$PATCHER_FILENAME"
+touch ./"$INSTALL_DIR"/.portable
+cd "$INSTALL_DIR"
+ln -s "$SCRIPT_FILENAME" swebdriver
+echo "./${SCRIPT_FILENAME} --help"
+./"$SCRIPT_FILENAME" --help

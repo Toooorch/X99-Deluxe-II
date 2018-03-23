@@ -1,0 +1,611 @@
+#!/bin/sh
+printf '\033[8;60;135t'
+clear
+
+#
+# This script is refer to Pike R. Alpha's work as follow, also thanks to Pike R. Alpha.       by crazybirdy. v4.20180125
+#
+
+########################################################################################################################
+# https://github.com/Piker-Alpha/HandyScripts/blob/master/installScriptTemplate.sh                                     #
+# Bash script to download macOS High Sierra installation packages from sucatalog.gz and build the installer.pkg for it.#
+# version 2.1 - Copyright (c) 2017 by Pike R. Alpha (PikeRAlpha@yahoo.com)                                             #
+########################################################################################################################
+
+#
+# Bash script to download macOS High Sierra installation packages from sucatalog.gz and build the installer.pkg for it.
+#
+# version 2.1 - Copyright (c) 2017 by Pike R. Alpha (PikeRAlpha@yahoo.com)
+#
+# Updates:
+#
+#       - Creates a seedEnrollement.plist when missing.
+#       - Volume picker for seedEnrollement.plist added.
+#       - Added sudo to 'open installer.pkg' to remedy authorisation problems.
+#       - Fix for volume names with a space in it. Thanks to:
+#       - https://pikeralpha.wordpress.com/2017/06/22/script-to-upgrade-macos-high-sierra-dp1-to-dp2/#comment-10216)
+#       - Add file checks so that we only download the missing files.
+#       - Polished up comments.
+#       - Changed key, salt, target files and version (now v1.5).
+#       - Now calling the installer.app with -pkg -target instead of open to prevent failures.
+#       - Fixed path to distribution file.
+#       - Checks for missing files added.
+#       - Updated version number (now v1.6).
+#       - Removing unused (initialisation of a) variable.
+#       - Improved verbose output.
+#       - Updated version number (now v1.7).
+#       - Fix installer breakage.
+#       - Updated version number (now v1.8).
+#       - Opt out for firmware added.
+#       - Changed version number (now v1.9).
+#       - Opt in/out for APFS conversion added.
+#       - Changed version number (now v2.0).
+#       - Variables 'version' and 'salt' added.
+#       - Checks for newly added variables added.
+#       - Changed version number (now v2.1).
+#
+
+# CatalogURL for Developer Program Members
+# https://swscan.apple.com/content/catalogs/others/index-10.13seed-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz
+#
+# CatalogURL for Beta Program Members
+# https://swscan.apple.com/content/catalogs/others/index-10.13beta-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz
+#
+# CatalogURL for Regular Software Updates
+# https://swscan.apple.com/content/catalogs/others/index-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz
+#
+#  CatalogURL for Customer Seed Updates
+# https://swscan.apple.com/content/catalogs/others/index-10.13customerseed-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz
+
+#
+# Tip: In case you run into the ERROR_7E7AEE96CA error then you need to change the ProductVersion and 
+# in /System/Library/CoreServices/SystemVersion.plist to 10.13
+#
+
+printred() {
+  printf "\e[1;31m${1}\e[0m"
+}
+printgreen() {
+  printf "\e[1;32m${1}\e[0m"
+}
+printyellow() {
+  printf "\e[1;33m${1}\e[0m"
+}
+printblue() {
+  printf "\e[1;34m${1}\e[0m"
+}
+printpurple() {
+  printf "\e[1;35m${1}\e[0m"
+}
+printLatest() {
+  printf "\e[1;31m${1}\e[0m"
+}
+
+echo 
+printf "更新 macOS High Sierra 10.13.x, 适用 \e[1;34mGPT 及 MBR\e[0m, \e[1;31mMBR 将不会更新 Recovery HD 分区.\e[0m \n"
+printf "Update macOS High Sierra 10.13.x, works fine with \e[1;34mboth GPT and MBR\e[0m, and \e[1;31mMBR will not update Recovery HD partition.\e[0m \n"
+echo 
+#
+# http://www.insanelymac.com/forum/topic/330364-macos-high-sierra-10132-update-released/?p=2546218
+# Fix Safari and App Store stopped connecting to the internet.
+# 
+printf "After updating finished and reboot, \e[1;34mSafari and App Store will stop connecting to the internet.\e[0m\n"
+printf "To fix this, need to run the following code in Terminal, and reboot after finished:\n"
+printf "\e[1;31msudo update_dyld_shared_cache -force\e[0m\n"
+echo
+echo "正在搜寻更新，请耐心等候！ Searching for updates from catalogs of swscan.apple.com. Be patient!"
+echo 
+
+cd /tmp
+rm -f update-catalogs
+rm -f update-catalogs.gz
+curl https://swscan.apple.com/content/catalogs/others/index-10.13seed-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz -o update-catalogs.gz 2>/dev/null
+gunzip update-catalogs.gz
+
+macOSUpd[0]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==1 `
+macOSUpd[1]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==2 `
+macOSUpd[2]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==3 `
+macOSUpd[3]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==4 `
+macOSUpd[4]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==5 `
+macOSUpd[5]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==6 `
+macOSUpd[6]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==7 `
+macOSUpd[7]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==8 `
+macOSUpd[8]=`cat /tmp/update-catalogs | grep macOSUpd10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v macOSUpd10.13.pkg | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==9 `
+
+macOSUpdCombo[0]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==1 `
+macOSUpdCombo[1]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==2 `
+macOSUpdCombo[2]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==3 `
+macOSUpdCombo[3]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==4 `
+macOSUpdCombo[4]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==5 `
+macOSUpdCombo[5]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==6 `
+macOSUpdCombo[6]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==7 `
+macOSUpdCombo[7]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==8 `
+macOSUpdCombo[8]=`cat /tmp/update-catalogs | grep macOSUpdCombo10.13 | grep pkg | grep -v RecoveryHDUpdate | grep -v Patch | grep -v ForSeed | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' | awk NR==9 `
+
+index=0
+for macOSUpdlist in "${macOSUpd[@]}"
+do
+  if [ ! $macOSUpdlist == "" ]; then
+
+    macOSUpdver[$index]=`echo $macOSUpdlist | sed 's/\// /g' | awk '{print $9;}' | sed 's/macOSUpd//' | sed 's/.pkg//' | sed 's/iMacProSupplemental//' | sed 's/Supplemental//' `
+
+    macOSUpdversion1[$index]=`echo $macOSUpdlist | sed 's/\// /g' | awk '{print $5;}' `
+    macOSUpdversion2[$index]=`echo $macOSUpdlist | sed 's/\// /g' | awk '{print $6;}' `
+    macOSUpdversion[$index]="${macOSUpdversion1[$index]}/${macOSUpdversion2[$index]}"
+    macOSUpdkey[$index]=`echo $macOSUpdlist | sed 's/\// /g' | awk '{print $7;}' `
+    macOSUpdsalt[$index]=`echo $macOSUpdlist | sed 's/\// /g' | awk '{print $8;}' `
+
+    url="https://swdist.apple.com/content/downloads/${macOSUpdversion[$index]}/${macOSUpdkey[$index]}/${macOSUpdsalt[$index]}/"
+    distribution="${macOSUpdkey[$index]}.English.dist"
+    rm -f *dist
+    curl $url$distribution -o ${macOSUpdkey[$index]}.English.dist 2>/dev/null
+    macOSupdatebuildver[$index]=`cat ${macOSUpdkey[$index]}.English.dist  | grep com.apple.pkg.update.os. | grep installKBytes | grep -v Patch | awk '{print $2;}' | sed 's/id="com.apple.pkg.update.os.//' | sed 's/"//' | sed 's/Combo//' | sed 's/ForSeed//' | sed 's/Auto//' | sed 's/iMacProSupplemental//' | sed 's/Supplemental//' `
+    macOSupdatebeta[$index]=`cat ${macOSUpdkey[$index]}.English.dist  | grep SU_TITLE | grep strings | grep Beta | sed 's/<strings language="English">"SU_TITLE"//' | sed 's/=//' | sed 's/"macOS High Sierra//' | sed 's/";//' | awk '{print $3;}' `
+    rm -f *dist
+
+    macOSuptime[$index]=`cat /tmp/update-catalogs | grep -B 7 $url${macOSUpdkey[$index]}.hi.dist | grep \<date\>  | sed 's/<date>//' | sed 's/<\/date>//' | awk '{print $1;}' | sed 's/T/ /' | sed 's/Z//' `
+    macOSupdate[$index]="${macOSuptime[$index]} .. ${macOSUpdkey[$index]} .. ${macOSupdatebuildver[$index]} Update ${macOSupdatebeta[$index]}"
+
+    macOSlist[$index]=`echo ${macOSUpdlist} `
+
+    let index++
+  fi
+done
+for macOSUpdCombolist in "${macOSUpdCombo[@]}"
+do
+  if [ ! $macOSUpdCombolist == "" ]; then
+
+    macOSUpdver[$index]=`echo $macOSUpdCombolist | sed 's/\// /g' | awk '{print $9;}' | sed 's/macOSUpdCombo//' | sed 's/Auto.pkg//' | sed 's/ForSeed.pkg//' | sed 's/.pkg//' `
+
+    macOSUpdversion1[$index]=`echo $macOSUpdCombolist | sed 's/\// /g' | awk '{print $5;}' `
+    macOSUpdversion2[$index]=`echo $macOSUpdCombolist | sed 's/\// /g' | awk '{print $6;}' `
+    macOSUpdversion[$index]="${macOSUpdversion1[$index]}/${macOSUpdversion2[$index]}"
+    macOSUpdkey[$index]=`echo $macOSUpdCombolist | sed 's/\// /g' | awk '{print $7;}' `
+    macOSUpdsalt[$index]=`echo $macOSUpdCombolist | sed 's/\// /g' | awk '{print $8;}' `
+
+    url="https://swdist.apple.com/content/downloads/${macOSUpdversion[$index]}/${macOSUpdkey[$index]}/${macOSUpdsalt[$index]}/"
+    distribution="${macOSUpdkey[$index]}.English.dist"
+    rm -f *dist
+    curl $url$distribution -o ${macOSUpdkey[$index]}.English.dist 2>/dev/null
+    macOSupdatebuildver[$index]=`cat ${macOSUpdkey[$index]}.English.dist  | grep com.apple.pkg.update.os. | grep installKBytes | grep -v Patch | awk '{print $2;}' | sed 's/id="com.apple.pkg.update.os.//' | sed 's/"//' | sed 's/Combo//' | sed 's/ForSeed//' | sed 's/Auto//' `
+    macOSupdatebeta[$index]=`cat ${macOSUpdkey[$index]}.English.dist  | grep SU_TITLE | grep strings | grep Beta | sed 's/<strings language="English">"SU_TITLE"//' | sed 's/=//' | sed 's/"macOS High Sierra//' | sed 's/";//' | awk '{print $3;}' `
+    rm -f *dist
+
+    macOSupdatetypeone=`echo $macOSUpdCombolist | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | sed 's/macOSUpdCombo//' | sed 's/.pkg//' `
+    macOSupdatetype[$index]=`echo $macOSupdatetypeone | sed 's/10.13//g' | sed 's/.1//g' | sed 's/.2//g' | sed 's/.3//g' | sed 's/.4//g' | sed 's/.5//g' | sed 's/.6//g' | sed 's/.7//g' `
+    macOSuptime[$index]=`cat /tmp/update-catalogs | grep -B 7 $url${macOSUpdkey[$index]}.hi.dist | grep \<date\>  | sed 's/<date>//' | sed 's/<\/date>//' | awk '{print $1;}' | sed 's/T/ /' | sed 's/Z//' `
+    macOSupdate[$index]="${macOSuptime[$index]} .. ${macOSUpdkey[$index]} .. ${macOSupdatebuildver[$index]} Combo Update ${macOSupdatebeta[$index]}"
+
+    macOSlist[$index]=`echo ${macOSUpdCombolist} `
+
+    let index++
+  fi
+done 
+
+index=0
+for list in "${macOSupdate[@]}"
+do
+  echo "${macOSlist[$index]}"
+  #cat /tmp/update-catalogs | grep "${macOSUpdversion[$index]}" | grep "${macOSUpdkey[$index]}" | grep "${macOSUpdsalt[$index]}" | grep English | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}'
+  #cat /tmp/update-catalogs | grep "${macOSUpdversion[$index]}" | grep "${macOSUpdkey[$index]}" | grep "${macOSUpdsalt[$index]}" | grep -v .dist | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}'
+  #echo
+  let index++
+done
+
+indexupdatever=0
+Latestupdatever=0
+for updatever in "${macOSupdatebuildver[@]}"
+do
+  if [ $updatever \> $Latestupdatever ]; then
+    Latestupdatever=${macOSupdatebuildver[$indexupdatever]}
+    Latestupdatebeta=${macOSupdatebeta[$indexupdatever]}
+  fi
+  let indexupdatever++
+done
+
+echo
+printf "一般更新 \e[1;34mUpdate\e[0m: update only for previous version, like as from 10.13.1 to 10.13.2.\n"
+printf "组合更新 \e[1;34mCombo Update\e[0m: update for all 10.13 version, like as 10.13.0, 10.13.1, 10.13.x.\n"
+
+echo
+printf "最新版本 The latest version: \e[1;32m$Latestupdatever $Latestupdatebeta\e[0m\n"
+
+echo
+echo "可选择的更新版本 Available version to update:"
+echo
+
+indexmenu=0
+for updateselect in "${macOSupdate[@]}"
+do
+  if [ ${macOSupdatebuildver[$indexmenu]} == $Latestupdatever ]; then
+    printLatest "[ $indexmenu ] ${updateselect}"
+    echo
+  else
+    echo "[ $indexmenu ] ${updateselect}"
+  fi
+  checkdownloadver[$indexmenu]=$indexmenu
+  let indexmenu++
+done
+
+echo
+read -p "选择要更新的版本 Select one version to update: " downloadver
+if [ ! $downloadver ]; then
+  echo
+  echo "发生错误！！！                          Error!!!"
+  echo
+  echo "请选择正确的更新版本。                  Please select right version to update."
+  echo
+  rm -f update-catalogs
+  exit 0
+fi
+
+checkfine=no
+checkindex=0
+for checkindex in "${checkdownloadver[@]}"
+do
+  if [ $downloadver == $checkindex ]; then
+    checkfine=yes
+  fi
+  let checkindex++
+done
+if [ $checkfine == no ]; then
+  echo
+  echo "发生错误！！！                          Error!!!"
+  echo
+  echo "请选择正确的更新版本。                  Please select right version to update."
+  echo
+  rm -f update-catalogs
+  exit 0
+fi
+
+updatever="${macOSUpdver[$downloadver]}"
+version="${macOSUpdversion[$downloadver]}"
+key="${macOSUpdkey[$downloadver]}"
+salt="${macOSUpdsalt[$downloadver]}"
+echo "                            [ $downloadver ] ${macOSupdate[$downloadver]}."
+
+distribution=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep English | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' `
+
+targetFiles[0]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==1 `
+targetFiles[1]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==2 `
+targetFiles[2]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==3 `
+targetFiles[3]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==4 `
+targetFiles[4]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==5 `
+targetFiles[5]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==6 `
+targetFiles[6]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==7 `
+targetFiles[7]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==8 `
+targetFiles[8]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==9 `
+targetFiles[9]=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep -v Patch | grep -v RecoveryHDUpdate | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' | awk NR==10 `
+RecoverHDPackage=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep RecoveryHDUpdate.pkg | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' `
+PatchPackage=`cat /tmp/update-catalogs | grep "${version}" | grep "${key}" | grep "${salt}" | grep pkg | grep Patch | sed 's/<string>//' | sed 's/<\/string>//' | sed 's/\// /g' | awk '{print $9;}' `
+
+rm -f update-catalogs
+cd
+
+#
+# You may need VolumeCheck() to return true (and thus skip checks)
+#
+export __OS_INSTALL=1
+
+#
+# Skip firmware update (OSInstaller).
+#
+export __FIRMWARE_UPDATE_OPTOUT
+
+#
+# Do not convert target HFS volume to APFS (OSInstaller).
+#
+export __APFS_OPTOUT=1
+
+#
+# Convert target HFS volume to APFS (OSInstaller).
+#
+# Note: This appears to be the default now.
+#
+#export __APFS_OPTIN=1
+
+#
+# Personalization setting.
+#
+#export __OSIS_ENABLE_SECUREBOOT
+
+#
+# Initialisation of a variable.
+#
+let index=0
+
+#
+# Target key copied from sucatalog.gz (think CatalogURL).
+#
+#key="091-57567"
+
+#
+# ID copied from product URL.
+#
+#version="37/54"
+
+#
+# Salt from product URL.
+#
+#salt="nftgxc5w8mbe2yw94p2k5p89huofu3ltv4"
+if [[ $key == "*" || $version == "*" || $salt == "*" ]]; then
+  echo 'Error: variables unitialised, please run makeInstallSeedScript.py'
+  exit -1
+fi
+
+#
+# Change additional shell optional behavior (expand unmatched names to a null string).
+#
+shopt -s nullglob
+
+#
+# Change to Volumes folder.
+#
+cd /Volumes
+
+#
+# Collect available target volume names.
+#
+targetVolumes=(*)
+
+echo "\n可选择的目标分区 Available target volumes:\n"
+for volume in "${targetVolumes[@]}"
+do
+  echo "[ $index ] ${volume}"
+  let index++
+done
+echo
+
+#
+# Ask to select a target volume.
+#
+read -p "选择要更新的分區 Select a target volume to install update: " volumeNumber
+
+#
+# Path to target volume.
+#
+targetVolume="/Volumes/${targetVolumes[$volumeNumber]}"
+
+if [ -f "$targetVolume/System/Library/CoreServices/SystemVersion.plist" ]; then
+  ProductBuildVersion=`cat "$targetVolume/System/Library/CoreServices/SystemVersion.plist" | grep -A 1 "ProductBuildVersion" | grep string | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' `
+  ProductVersion=`cat "$targetVolume/System/Library/CoreServices/SystemVersion.plist" | grep -A 1 "ProductVersion" | grep string | sed 's/<string>//' | sed 's/<\/string>//' | awk '{print $1;}' `
+
+  echo "                                        [ $volumeNumber ] ${targetVolumes[$volumeNumber]} $ProductVersion $ProductBuildVersion"
+  echo
+  SelectVersion=`echo $ProductVersion | sed 's/.\{5\}/& /g' | awk '{print $1;}' `
+  if [ ! $SelectVersion == 10.13 ]; then
+    echo
+    echo "发生错误！！！                          Error!!!"
+    echo
+    echo "选择的目标分區，並非 10.13.x 系統分區。 The selected target volume is not 10.13.x partition."
+    echo
+    exit 0
+  fi
+  read -p "选择要更新的目标分區正确？   The target volume is selected, is it right？(y/n) " targetyesno
+    case "$targetyesno" in
+      y|Y)
+        echo
+      ;;
+      *)
+        echo
+        echo "发生错误！！！               Error!!!"
+        echo
+        echo "选择要更新的目标分區不正确。 The selected target volume is not right."
+        echo
+        exit 0
+      ;;
+    esac
+elif [ ! -f "$targetVolume/System/Library/CoreServices/SystemVersion.plist" ]; then
+  echo "                                        [ $volumeNumber ] ${targetVolumes[$volumeNumber]}"
+  echo
+  echo "发生错误！！！                          Error!!!"
+  echo
+  echo "选择的目标分區，並非 macOS 系統分區。   The selected target volume is not a macOS system partition."
+  echo
+  exit 0
+fi
+
+#
+# type of target volume. GUID_partition_scheme or FDisk_partition_scheme
+#
+disknumber=`diskutil info "$targetVolume" | grep "Part of Whole:" | awk '{print $4;}'`
+partitiontype=`diskutil info /dev/$disknumber | grep Content | awk '{print $3;}'`
+
+#
+# Initialisation of a variable (our target folder).
+#
+tmpDirectory="/tmp"
+
+#
+# Name of target installer package.
+#
+installerPackage="installer.pkg"
+
+#
+# URL copied from sucatalog.gz (think CatalogURL).
+#
+url="https://swdist.apple.com/content/downloads/${version}/${key}/${salt}/"
+
+#
+# Target distribution language.
+#
+distribution="${key}.English.dist"
+
+#
+# Target files copied from sucatalog.gz (think CatalogURL).
+#
+#targetFiles=(
+#BridgeOSBrain.pkg
+#EmbeddedOSFirmware.pkg
+#FirmwareUpdate.pkg
+#BridgeOSUpdateCustomer.pkg
+#FullBundleUpdate.pkg
+#macOSUpd10.13.3.pkg
+#macOSUpd10.13.3.RecoveryHDUpdate.pkg
+#091-57567.English.dist
+#)
+
+#
+# Check target directory.
+#
+if [ ! -d "${tmpDirectory}/${key}" ]; then
+  mkdir "${tmpDirectory}/${key}"
+fi
+open "${tmpDirectory}/${key}"
+
+echo 
+echo "Downloading the update files. [ $downloadver ] ${macOSupdate[$downloadver]}."
+echo 
+echo "${distribution}"
+for filename in "${targetFiles[@]}"
+do
+  if [ ! $filename == "" ]; then
+    echo "$filename"
+  fi
+done
+if [ ! $partitiontype == "FDisk_partition_scheme" ]; then
+  echo "${RecoverHDPackage}"
+fi
+echo
+
+#
+# Download distribution file.
+#
+if [ ! -e "${tmpDirectory}/${key}/${distribution}" ]; then
+  echo "Downloading: ${distribution} ..."
+  curl "${url}${distribution}" -o "${tmpDirectory}/${key}/${distribution}"
+  #
+  # Remove root only restriction/allow us to install on any target volume.
+  #
+  cat "${tmpDirectory}/${key}/${distribution}" | sed -e 's|rootVolumeOnly="true"|allow-external-scripts="true"|' > "${tmpDirectory}/${key}/new.dist"
+
+  if [ -e "${tmpDirectory}/${key}/new.dist" ]; then
+    mv "${tmpDirectory}/${key}/new.dist" "${tmpDirectory}/${key}/${distribution}"
+  fi
+else
+  echo "File: ${distribution} already there, skipping this download."
+fi
+
+#
+# Change to working directory (otherwise it will fail to locate the packages).
+#
+cd "${tmpDirectory}/${key}"
+
+#
+# Download target files.
+#
+for filename in "${targetFiles[@]}"
+do
+  if [ ! $filename == "" ]; then
+    if [ ! -e "${tmpDirectory}/${key}/${filename}" ]; then
+      echo "Downloading: ${filename} ..."
+      curl "${url}${filename}" -o "${tmpDirectory}/${key}/${filename}"
+    else
+      echo "File: ${filename} already there, skipping this download."
+    fi
+  fi
+done
+
+#
+# Download Recovery HD partition update and install it.
+#
+if [ ! $partitiontype == "FDisk_partition_scheme" ]; then
+  if [ ! -e "${tmpDirectory}/${key}/${RecoverHDPackage}" ]; then
+    echo "Downloading: ${RecoverHDPackage} ..."
+    curl "${url}${RecoverHDPackage}" -o "${tmpDirectory}/${key}/${RecoverHDPackage}"
+  else
+    echo "File: ${RecoverHDPackage} already there, skipping this download."
+  fi
+  echo
+  printf "Installing ${RecoverHDPackage} to \e[1;34mRecovery HD partition\e[0m.\n"
+  sudo /usr/sbin/installer -pkg "${tmpDirectory}/${key}/${RecoverHDPackage}" -target "${targetVolume}" > "${tmpDirectory}/${key}recoveryHD"
+  cat "${tmpDirectory}/${key}recoveryHD"
+
+  recoveryhdsuccessful=`cat "${tmpDirectory}/${key}recoveryHD" | grep successful`
+  if [[ $recoveryhdsuccessful == "" ]]; then
+    printf "\e[1;34mIf get the error: \e[1;35minstaller: The install failed\e[0m.\n"
+    printf "\e[1;34mNeed to re-install\e[0m \e[1;31m${tmpDirectory}/${key}/${RecoverHDPackage}\e[0m \e[1;34mafter upgrading finished if you need it.\e[0m\n"
+  fi
+  rm -f "${tmpDirectory}/${key}recoveryHD"
+fi
+
+#
+# Create installer package.
+#
+if [ -f "${tmpDirectory}/${key}/${RecoverHDPackage}" ]; then
+  mv "${tmpDirectory}/${key}/${RecoverHDPackage}" "${tmpDirectory}/${key}-${RecoverHDPackage}"
+fi
+if [ -f "${tmpDirectory}/${key}/${PatchPackage}" ]; then
+  mv "${tmpDirectory}/${key}/${PatchPackage}" "${tmpDirectory}/${key}-${PatchPackage}"
+fi
+cd "${tmpDirectory}/${key}"
+cp ${distribution} ${distribution}-org
+sed -e '/volume-check/d' ${distribution} > new1.txt
+sed -e '/installation-check/d' new1.txt > new2.txt
+sed -e '/RecoveryHDUpdate/d' new2.txt > new3.txt
+sed -e '/system-image/d' new3.txt > new4.txt
+sed -e '/Patch/d' new4.txt > new5.txt
+cp new5.txt ${distribution}
+#echo
+#diff -Nuar ${distribution}-org ${distribution}
+#echo
+rm ${distribution}-org
+rm new?.txt
+
+if [ "${RecoverHDPackage}" == "" ]; then
+	if [ "${PatchPackage}" == "" ]; then
+		echo
+		echo "Creating installer.pkg ..."
+	elif [ ! "${PatchPackage}" == "" ]; then
+		echo
+		echo "Creating installer.pkg without ${PatchPackage}..."
+	fi
+elif [ ! "${RecoverHDPackage}" == "" ]; then
+	if [ "${PatchPackage}" == "" ]; then
+		echo
+		echo "Creating installer.pkg without ${RecoverHDPackage}..."
+	elif [ ! "${PatchPackage}" == "" ]; then
+		echo
+		echo "Creating installer.pkg without ${RecoverHDPackage} and ${PatchPackage}..."
+	fi
+fi
+
+productbuild --distribution "${tmpDirectory}/${key}/${distribution}" --package-path "${tmpDirectory}/${key}" "${installerPackage}"
+
+#
+# Launch the installer.
+#
+if [ -e "${tmpDirectory}/${key}/${installerPackage}" ]; then
+	echo
+  if [ ! "${PatchPackage}" == "" ]; then
+    printf "Installing update to \e[1;34mSystem partition\e[0m without ${PatchPackage}.\n"
+  else
+    printf "Installing update to \e[1;34mSystem partition\e[0m.\n"
+  fi
+  sudo /usr/sbin/installer -pkg "${tmpDirectory}/${key}/${installerPackage}" -target "${targetVolume}"
+  if [ -f "${tmpDirectory}/${key}-${RecoverHDPackage}" ]; then
+  	mv "${tmpDirectory}/${key}-${RecoverHDPackage}" "${tmpDirectory}/${key}/${RecoverHDPackage}"
+  fi
+  if [ -f "${tmpDirectory}/${key}-${PatchPackage}" ]; then
+  	mv "${tmpDirectory}/${key}-${PatchPackage}" "${tmpDirectory}/${key}/${PatchPackage}"
+  fi
+fi
+echo
+
+#
+# http://www.insanelymac.com/forum/topic/330364-macos-high-sierra-10132-update-released/?p=2546218
+# Fix Safari and App Store stopped connecting to the internet.
+# 
+echo 
+printf "After updating finished and reboot, \e[1;34mSafari and App Store will stop connecting to the internet.\e[0m\n"
+printf "To fix this, need to run the following code in Terminal, and reboot after finished:\n"
+printf "\e[1;31msudo update_dyld_shared_cache -force\e[0m\n"
+echo
+printf "完成更新及重新启动电脑之后，\e[1;34mSafari 及 App Store 将发生无法联网的错误。\e[0m\n"
+printf "须在终端，键入以下命令修复，并在完成后重新启动电脑：\n"
+printf "\e[1;31msudo update_dyld_shared_cache -force\e[0m\n"
+echo
+echo
+
+
+
