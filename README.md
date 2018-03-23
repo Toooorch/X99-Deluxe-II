@@ -1,11 +1,11 @@
 # X99DeluxeII
-All my files (including 3rd party work) for X99 Deluxe II based hack.
+All my files (including 3rd party work) for X99 Deluxe II based hack. Works great.
 
-Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforge.net/projects/cloverefiboot/)
+Currenly used Clover version: **Clover_v2.4k_r4411** [clover](https://sourceforge.net/projects/cloverefiboot/)
 
 ## **Setup:**
-- Asus X99 Deluxe II Rev 1.02 [asus](https://www.asus.com/us/Motherboards/X99-DELUXE-II/)
-- i7 5820K 3.3Ghz > O.C. 3.8Ghz (There are some base support hints on OS X for Haswell-E)
+- Asus X99 Deluxe II Rev 1.02 - latest BIOS, locked MSR [asus](https://www.asus.com/us/Motherboards/X99-DELUXE-II/)
+- i7 5820K 3.3Ghz > O.C. 3.8Ghz (XCPM patches included)
 - nVidia 1080 Ti (nVidia WEB Drivers)
 - G.Skill Trident Z RGB 64GB 3200Mhz > O.C. 3600MHZ
 - Seasonic Prime Titanium 850W
@@ -14,7 +14,7 @@ Currenly used Clover version: **Clover_v2.4k_r4114** [clover](https://sourceforg
 - Samsung 850 EVO 250G
 - Seagate FireCuda Laptop SSHD 2TB
 
-- macOS version - 10.13 (17A365)
+- macOS version - 10.13.3 (17D102) patches for 10.13.4 beta included
 
 ## **Drivers & Patches**
 **Audio:**
