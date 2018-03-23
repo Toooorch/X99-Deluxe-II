@@ -25,7 +25,7 @@ Currenly used Clover version: **Clover_v2.4k_r4411** [clover](https://sourceforg
 - AptioMemoryFix.efi
 
 **Audio:**
-- VoodooHDA 2.8.9 - works with great, only HDMI/DisplayPort audio sometimes...
+- VoodooHDA 2.8.9 - works great, only HDMI/DisplayPort audio sometimes...
 
 **ACPI Tables:**
 - custom DSDT
