@@ -6,8 +6,8 @@ All my files (including 3rd party work) for X99 Deluxe II based hack. Works grea
 Currenly used Clover version: **Clover_v2.4k_r4411** [clover](https://sourceforge.net/projects/cloverefiboot/)
 
 ## **Setup:**
-- Asus X99 Deluxe II Rev 1.02 - latest BIOS, locked MSR [asus](https://www.asus.com/us/Motherboards/X99-DELUXE-II/)
-- i7 5820K 3.3Ghz > O.C. 4.2Ghz (XCPM patches included with Haswell-E PMDrvr.kext for better states)
+- Asus X99 Deluxe II Rev 1.02 [asus](https://www.asus.com/us/Motherboards/X99-DELUXE-II/)
+- i7 5820K 3.3Ghz > O.C. 4.2Ghz
 - nVidia 1080 Ti (nVidia WEB Drivers)
 - G.Skill Trident Z RGB 64GB 3200Mhz > O.C. 3600MHZ
 - Seasonic Prime Titanium 850W
@@ -22,23 +22,20 @@ Currenly used Clover version: **Clover_v2.4k_r4411** [clover](https://sourceforg
 **Audio:**
 - VoodooHDA 2.8.9 - works with great, only HDMI/DisplayPort audio sometimes...
 
+**ACPI Tables:**
+- custom DSDT, use your own!
+
 **Network:**
 - WiFi - OOB
 - BT - BrcmBluetoothInjector.kext [repo](https://github.com/the-darkvoid/BrcmPatchRAM)
 - Intel® I218V - IntelMausiEthernet.kext [repo](https://github.com/Mieze/IntelMausiEthernet)
 - Intel® I211-A - SmallTreeIntel82576.kext
 
-**USB**
-- X99_Injector_USB_3.kext
-
-**ACPI Tables**
-- Piker Alpha ssdtPRGen.sh [repo](https://github.com/Piker-Alpha/ssdtPRGen.sh)
-
 **XCPM**
-- Piker Alpha Patches
-- VoodooTSCSync.kext
-- MacPro Vectors through - freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
-X86PLatform.kext loaded, native PM
+- kernel patches for Haswell-E
+- scope for Asus MSR locked MSR
+- Haswell-E PMDrvr.kext for better states
+- Vectors through - freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
 
 **NVMe**
 - native macOS 10.13. support
