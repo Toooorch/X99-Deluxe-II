@@ -14,7 +14,7 @@ Currenly used Clover version: **Clover_v2.4k_r4411** [clover](https://sourceforg
 - Samsung 960 PRO 512GB
 - Samsung 850 EVO 250G
 - Seagate FireCuda Laptop SSHD 2TB
-- macOS version - **10.13.3 (17D102)** patches for **10.13.4** beta included
+- macOS version - **10.13.6 (17G65)**
 
 ## **Drivers & Patches**
 
@@ -44,7 +44,7 @@ Currenly used Clover version: **Clover_v2.4k_r4411** [clover](https://sourceforg
 - kernel patches for Haswell-E
 - scope for Asus MSR locked MSR
 - Haswell-E PMDrvr.kext for better states
-- Vectors through - freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
+- Vectors loaded through - freqVectorsEdit.sh [repo](https://github.com/Piker-Alpha/freqVectorsEdit.sh)
 
 **GPU**
 - nVidia WEB drivers (script for download included)
